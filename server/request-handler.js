@@ -36,13 +36,14 @@ var requestHandler = function(request, response) {
       response.end(JSON.stringify(fakeDatabase));
     }
 
-    if (request.method === "POST") {
+    if (request.method === 'POST') {
       console.log('Serving request type ' + request.method + ' for url ' + request.url);
       //'data' here searches the request object for the data key and gets it!
       request.on('data', function(message) {
         message = JSON.parse(message);
         //unshift to add to top
         fakeDatabase.results.unshift(message);
+        console.log(fakeDatabase)
       });
       request.on('end', function() {
         response.writeHead(201, headers['Content-Type'] = 'application/json');
