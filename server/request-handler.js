@@ -1,3 +1,12 @@
+var handleRequest = require('./basic-server.js');
+var $ = require('jQuery');
+var request = require('request');
+var http = require('http');
+var fs = require('fs');
+var url = require('url');
+
+
+
 /*************************************************************
 
 You should implement your request handler function in this file.
@@ -11,6 +20,14 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
+var fakeDatabase = {results:['you are super!']};
+// var server = `http://127.0.0.1:3000`;
+// var server = 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
+var messages;
+
+var routes = {
+  '/classes/messages': handleRequest
+};
 
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
@@ -27,6 +44,34 @@ var requestHandler = function(request, response) {
   // Adding more logging to your server can be an easy way to get passive
   // debugging help, but you should always be careful about leaving stray
   // console.logs in your code.
+  var urlParts = url.parse(request.url);
+  var route = urlParts['pathname'];
+  // if (route) {
+  //   route(request, response);
+  // } else { 
+  //   utilities.sendResponse(response, 'Not Found', 404);
+  // }
+// console.log(request);
+// console.log(response);
+
+  if (request.method === "GET") {
+    console.log(route)
+  }
+
+  if (request.method === "POST") {
+    fakeDatabase.results.push(JSON.parse());
+  }
+
+  // if (request.method === 'OPTIONS') {
+  //   var options = {
+  //     url: server,
+  //     type: 'POST',
+  //     data: JSON.stringify('bananas'),
+  //     contentType: 'application/json',
+  //     success: null,
+  //     error: null
+  //   };
+  // };
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
 
   // The outgoing status.
@@ -70,4 +115,6 @@ var defaultCorsHeaders = {
   'access-control-allow-headers': 'content-type, accept',
   'access-control-max-age': 10 // Seconds.
 };
+
+module.exports = requestHandler;
 

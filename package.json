@@ -29,5 +29,9 @@
     "presets": [
       "es2015"
     ]
+  },
+  "dependencies": {
+    "ajax-request": "^1.2.3",
+    "underscore": "^1.9.1"
   }
 }
